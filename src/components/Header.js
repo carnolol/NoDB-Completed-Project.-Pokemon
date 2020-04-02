@@ -1,8 +1,11 @@
 import React from 'react'
+import '../App.css'
 
 function Header(){
     return (
-        <div>Header.js</div>
+        <div>
+            <h1 className="header-text">GOTTA CATCH EM ALL</h1>
+        </div>
     )
 }
 

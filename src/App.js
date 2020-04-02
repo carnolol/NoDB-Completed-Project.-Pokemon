@@ -3,6 +3,7 @@ import './App.css'
 import Header from './components/Header'
 import Finder from './components/Finder'
 import Pokedex from './components/Pokedex'
+import Axios from 'axios'
 
 export class App extends Component {
   constructor(props) {
@@ -15,13 +16,25 @@ export class App extends Component {
     this.catchPokemon = this.catchPokemon.bind(this)
   }
   componentDidMount() {
-
+    Axios.get('/api/pokemon').then( res => {
+      this.setState({
+        caughtPokemon: res.data
+      })
+    })
   }
   catchPokemon(pokemon) {
-
+    Axios.post('/api/pokemon', pokemon).then(res => {
+      this.setState({
+        caughtPokemon: res.data
+      })
+    })
   }
   saveName(id, newName) {
-
+    Axios.put(`/api/pokemon/${id}`, {newName}).then(res => {
+      this.setState({
+        caughtPokemon: res.data
+      })
+    })
   }
   releasePokemon(id) {
 
@@ -29,15 +42,14 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
-        app.js is working
         <Header />
         <Finder
           catchPokemon={this.catchPokemon}
         />
         <Pokedex
           caughtPokemon={this.state.caughtPokemon}
-          saveName={this.state.saveName}
-          releasePokemon={this.state.releasePokemon}
+          saveName={this.saveName}
+          releasePokemon={this.releasePokemon}
         />
       </div>
     )
